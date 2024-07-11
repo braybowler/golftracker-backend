@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -21,7 +22,7 @@ class AuthController extends Controller
             'password' => $request->input('password'),
         ]);
 
-        auth()->login($user);
+        auth()->guard('api')->login($user);
 
         return response()->json([
             'user' => $user,
@@ -46,6 +47,11 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        //TODO: implement logout functionality.
+        //TODO: Why does the guard have to be set to 'web' for this to work.
+        auth()->guard('web')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return response()->json([], 204);
     }
 }
