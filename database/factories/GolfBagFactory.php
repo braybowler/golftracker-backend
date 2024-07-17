@@ -19,9 +19,9 @@ class GolfBagFactory extends Factory
     {
         return [
             "user_id" => User::factory(),
-            "make" => $this->faker()->word(),
-            "model" => $this->faker()->word(),
-            "nickname" => $this->faker()->word(),
+            "make" => $this->faker->word(),
+            "model" => $this->faker->word(),
+            "nickname" => $this->faker->word(),
         ];
     }
 }

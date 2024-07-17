@@ -3,7 +3,6 @@
 namespace Tests\Feature\Controllers;
 
 use Tests\TestCase;
-use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class StoreGolfBagControllerTest extends TestCase
