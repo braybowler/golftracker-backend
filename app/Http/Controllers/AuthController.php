@@ -22,7 +22,7 @@ class AuthController extends Controller
             'password' => $request->input('password'),
         ]);
 
-        auth()->guard('api')->login($user);
+        auth()->login($user);
 
         return response()->json([
             'user' => $user,
