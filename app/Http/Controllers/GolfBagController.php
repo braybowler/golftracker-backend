@@ -8,17 +8,11 @@ use App\Models\GolfBag;
 
 class GolfBagController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         return GolfBagResource::collection(auth()->user()->golfBags()->paginate(10));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -27,7 +21,6 @@ class GolfBagController extends Controller
             'nickname' => 'string|max:255',
         ]);
 
-        //Link this golf bag to the authed user.
         $golfBag = GolfBag::create([
             'user_id' => auth()->id(),
             'make' => $request->input('make'),
