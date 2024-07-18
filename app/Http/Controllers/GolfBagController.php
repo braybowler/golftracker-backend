@@ -36,7 +36,9 @@ class GolfBagController extends Controller
      */
     public function show(string $id)
     {
-        return response()->json([], 201);
+        $golfBag = GolfBag::findOrFail($id);
+
+        return response()->json(GolfBagResource::make($golfBag));
     }
 
     /**

@@ -25,7 +25,7 @@ class StoreGolfBagControllerTest extends TestCase
                         'model' => 'Test Model',
                         'nickname' => 'Test Nickname',
                     ]
-                )->assertOk();
+                )->assertCreated();
 
         $this->assertDatabaseCount('golf_bags', 1);
     }
@@ -44,7 +44,7 @@ class StoreGolfBagControllerTest extends TestCase
                     'model' => 'Test Model',
                     'nickname' => 'Test Nickname',
                 ]
-            )->assertOk();
+            )->assertCreated();
 
         $this->assertDatabaseCount('golf_bags', 1);
         $this->assertDatabaseHas('golf_bags', [
@@ -80,8 +80,6 @@ class StoreGolfBagControllerTest extends TestCase
                     'nickname' => $nickname,
                 ]
             )->assertCreated();
-
-        $response->dump();
 
         $response
             ->assertJson(fn (AssertableJson $json) =>

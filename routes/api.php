@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Route;
 //All api.php routes are prepended with /api
 //For example: localhost/api/test
 
-Route::get('/test', function () {
-    return new Response(json_encode('A response from the Laravel api/test route.' . rand(1, 100)), 200);
+Route::get('/healthcheck', function () {
+    return new Response(json_encode('A response from the Laravel api/healthcheck route.' . rand(1, 100)), 200);
 });
 
 Route::post('/login', [AuthController::class, 'login']);
@@ -18,5 +18,4 @@ Route::post('/register', [AuthController::class, 'register']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('golfbags', GolfBagController::class);
-    // Route::apiResource('golfclubs', GolfClubController::class);
 });
