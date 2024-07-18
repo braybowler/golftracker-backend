@@ -11,22 +11,40 @@ class ShowGolfBagControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_it_returns_a_golfbag_identified_by_the_request_id_parameter(): void
+    public function test_it_returns_the_golfbag_identified_by_the_request_id_parameter(): void
     {
-        $numGolfbags = 5;
-        $requestId = 1;
-        $user = User::factory()->hasGolfBags($numGolfbags)->create();
+        $user = User::factory()->hasGolfBags(5)->create();
+        $golfbag = $user->golfBags()->first();
 
-        //api/golfbags/{golfbag}
         $response = $this->actingAs($user)
-            ->getJson(route('golfbags.show', ['golfbag' => $requestId]))
+            ->getJson(route('golfbags.show', ['golfbag' => $golfbag->id]))
             ->assertOk();
 
         $response
             ->assertJson(fn (AssertableJson $json) =>
             $json->where('user_id', $user->id)
-                ->where('id', $requestId)
+                ->where('id', $golfbag->id)
                 ->etc()
             );
+    }
+
+    public function test_it_does_not_allow_guest_access(): void
+    {
+        $this->getJson(route('golfbags.show', ['golfbag' => 1]))
+            ->assertUnauthorized();
+    }
+
+    public function test_it_does_not_allow_access_to_other_users_golfbags(): void
+    {
+        $this->markTestIncomplete('todo');
+    }
+
+    public function test_it_returns_a_404_status_code_for_requests_containing_ids_that_do_not_exist(): void
+    {
+        $user = User::factory()->hasGolfBags(1)->create();
+
+        $this->actingAs($user)
+            ->getJson(route('golfbags.show', ['golfbag' => -1]))
+            ->assertNotFound();
     }
 }

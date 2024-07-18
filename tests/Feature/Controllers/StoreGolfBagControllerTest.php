@@ -14,17 +14,16 @@ class StoreGolfBagControllerTest extends TestCase
     public function test_it_stores_a_golfbag(): void
     {
         $user = User::factory()->create();
-
         $this->assertDatabaseCount('golf_bags', 0);
 
         $this->actingAs($user)
                 ->postJson(
-                    route('golfbags.store'),
+                    route('golfbags.store',
                     [
                         'make' =>  'Test Bag',
                         'model' => 'Test Model',
                         'nickname' => 'Test Nickname',
-                    ]
+                    ])
                 )->assertCreated();
 
         $this->assertDatabaseCount('golf_bags', 1);
@@ -33,34 +32,34 @@ class StoreGolfBagControllerTest extends TestCase
     public function test_it_associates_the_golfbag_with_the_requesting_user(): void
     {
         $user = User::factory()->create();
-
         $this->assertDatabaseCount('golf_bags', 0);
 
         $this->actingAs($user)
             ->postJson(
-                route('golfbags.store'),
+                route('golfbags.store',
                 [
                     'make' =>  'Test Bag',
                     'model' => 'Test Model',
                     'nickname' => 'Test Nickname',
                 ]
+                )
             )->assertCreated();
 
         $this->assertDatabaseCount('golf_bags', 1);
-        $this->assertDatabaseHas('golf_bags', [
-            'user_id' =>$user->id,
-        ]);
+        $this->assertDatabaseHas('golf_bags', ['user_id' => $user->id]);
     }
 
     public function test_it_does_not_allow_guest_access(): void
     {
         $this->postJson(
-            route('golfbags.store'),
-            [
-                'make' =>  'Test Bag',
-                'model' => 'Test Model',
-                'nickname' => 'Test Nickname',
-            ]
+            route('golfbags.store',
+                [
+                    'make' =>  'Test Bag',
+                    'model' => 'Test Model',
+                    'nickname' => 'Test Nickname',
+                ]
+            ),
+
         )->assertUnauthorized();
     }
 

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 //For example: localhost/api/test
 
 Route::get('/healthcheck', function () {
-    return new Response(json_encode('A response from the Laravel api/healthcheck route.' . rand(1, 100)), 200);
+    return new Response(json_encode('Server is responding.'), 200);
 });
 
 Route::post('/login', [AuthController::class, 'login']);
