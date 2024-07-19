@@ -48,7 +48,7 @@ class GolfBagController extends Controller
             'nickname' => 'string|max:255',
         ]);
 
-        $golfBag = GolfBag::findOrFail($id);
+        $golfBag = GolfBag::where('user_id', auth()->id())->findOrFail($id);
 
         $golfBag->update([
             'make' => $request->input('make'),
@@ -60,11 +60,12 @@ class GolfBagController extends Controller
         return response()->json(GolfBagResource::make($golfBag));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        return response()->json([], 201);
+        $golfBag = GolfBag::where('user_id', auth()->id())->findOrFail($id);
+
+        $golfBag->delete();
+
+        return response()->json([], 204);
     }
 }

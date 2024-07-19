@@ -71,7 +71,33 @@ class UpdateGolfBagControllerTest extends TestCase
 
     public function test_it_does_not_allow_access_to_other_users_golfbags(): void
     {
-        $this->markTestIncomplete('TODO');
+        $make = 'Test Make';
+        $model = 'Test Model';
+        $nickname = 'Test Nickname';
+
+        $user = User::factory()->hasGolfBags(1, [
+            'make' => $make,
+            'model' => $model,
+            'nickname' => $nickname,
+        ])->create();
+
+        $userTwo = User::factory()->hasGolfBags(1, [
+            'make' => $make,
+            'model' => $model,
+            'nickname' => $nickname,
+        ])->create();
+
+        $inaccessibleGolfBag = $userTwo->golfBags()->first();
+
+        $this->actingAs($user)
+            ->patchJson(
+                route('golfbags.update', ['golfbag' => $inaccessibleGolfBag->id]),
+                [
+                    'make' => $make,
+                    'model' => $model,
+                    'nickname' => $nickname,
+                ]
+            )->assertNotFound();
     }
 
     public function test_it_returns_a_404_status_code_for_patch_requests_for_golfbags_that_do_not_exist(): void
