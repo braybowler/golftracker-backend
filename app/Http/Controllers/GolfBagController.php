@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\GolfBagResource;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use App\Models\GolfBag;
@@ -34,7 +35,7 @@ class GolfBagController extends Controller
 
     public function show(string $id)
     {
-        $golfBag = GolfBag::findOrFail($id);
+        $golfBag = GolfBag::where('user_id', auth()->id())->findOrFail($id);
 
         return response()->json(GolfBagResource::make($golfBag));
     }
@@ -53,11 +54,12 @@ class GolfBagController extends Controller
             'make' => $request->input('make'),
             'model' => $request->input('model'),
             'nickname' => $request->input('nickname') ? $request->input('nickname') : '',
+            'updated_at' => Carbon::now(),
         ]);
 
         $golfBag->save(); //TODO: is save() also necessary?
 
-        return response()->json([], 201);
+        return response()->json(GolfBagResource::make($golfBag));
     }
 
     /**

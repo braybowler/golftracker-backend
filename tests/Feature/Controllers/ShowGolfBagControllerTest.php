@@ -36,7 +36,13 @@ class ShowGolfBagControllerTest extends TestCase
 
     public function test_it_does_not_allow_access_to_other_users_golfbags(): void
     {
-        $this->markTestIncomplete('todo');
+        $user = User::factory()->hasGolfBags()->create();
+        $userTwo = User::factory()->hasGolfBags()->create();
+        $inaccessibleGolfBag = $userTwo->golfBags()->first();
+
+        $this->actingAs($user)->getJson(route('golfbags.show', [
+            'golfbag' => $inaccessibleGolfBag->id,
+        ]))->assertNotFound();
     }
 
     public function test_it_returns_a_404_status_code_for_requests_containing_ids_that_do_not_exist(): void

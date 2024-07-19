@@ -59,7 +59,6 @@ class StoreGolfBagControllerTest extends TestCase
                     'nickname' => 'Test Nickname',
                 ]
             ),
-
         )->assertUnauthorized();
     }
 
