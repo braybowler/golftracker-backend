@@ -57,8 +57,6 @@ class GolfBagController extends Controller
             'updated_at' => Carbon::now(),
         ]);
 
-        $golfBag->save(); //TODO: is save() also necessary?
-
         return response()->json(GolfBagResource::make($golfBag));
     }
 

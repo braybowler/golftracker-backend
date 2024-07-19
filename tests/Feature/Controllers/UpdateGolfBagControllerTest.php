@@ -43,7 +43,7 @@ class UpdateGolfBagControllerTest extends TestCase
                     'model' => $model,
                     'nickname' => $nickname,
                 ])
-            ->assertOk(); //TODO: Is this the correct return for a PATCH request?
+            ->assertOk();
 
         $this->assertDatabaseHas('golf_bags', [
             'user_id' => $user->id,
@@ -72,5 +72,21 @@ class UpdateGolfBagControllerTest extends TestCase
     public function test_it_does_not_allow_access_to_other_users_golfbags(): void
     {
         $this->markTestIncomplete('TODO');
+    }
+
+    public function test_it_returns_a_404_status_code_for_patch_requests_for_golfbags_that_do_not_exist(): void
+    {
+        $make = 'Some Other Make';
+        $model = 'Some Other Model';
+        $nickname = 'Some Other Nickname';
+
+        $user = User::factory()->hasGolfBags(1)->create();
+
+        $this->actingAs($user)
+            ->patchJson(route('golfbags.update', ['golfbag' => -1]), [
+                'make' => $make,
+                'model' => $model,
+                'nickname' => $nickname,
+            ])->assertNotFound();
     }
 }
