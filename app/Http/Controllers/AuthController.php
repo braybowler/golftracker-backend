@@ -44,12 +44,10 @@ class AuthController extends Controller
         ], 200);
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
         //TODO: (d/w Jacob) Why does the guard have to be set to 'web' for this to work.
         auth()->guard('web')->logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
 
         return response()->json([], 204);
     }
