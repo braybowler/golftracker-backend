@@ -1,11 +1,10 @@
 <?php
 
-namespace Tests\Feature\Controllers;
+namespace Tests\Feature\Controllers\GolfBagController;
 
 use App\Models\User;
-use Illuminate\Testing\Fluent\AssertableJson;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class DestroyGolfBagControllerTest extends TestCase
 {
@@ -50,6 +49,6 @@ class DestroyGolfBagControllerTest extends TestCase
 
         $this->actingAs($user)
             ->deleteJson(route('golfbags.destroy', ['golfbag' => -1])
-        )->assertNotFound();
+            )->assertNotFound();
     }
 }

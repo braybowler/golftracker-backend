@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Feature\Controllers;
+namespace Tests\Feature\Controllers\GolfBagController;
 
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UpdateGolfBagControllerTest extends TestCase
 {
@@ -53,8 +53,7 @@ class UpdateGolfBagControllerTest extends TestCase
         ]);
 
         $response
-            ->assertJson(fn (AssertableJson $json) =>
-            $json->where('user_id', $user->id)
+            ->assertJson(fn (AssertableJson $json) => $json->where('user_id', $user->id)
                 ->where('id', $golfBag->id)
                 ->where('make', $make)
                 ->where('model', $model)

@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\GolfBag>
@@ -18,10 +18,10 @@ class GolfBagFactory extends Factory
     public function definition(): array
     {
         return [
-            "user_id" => User::factory(),
-            "make" => $this->faker->word(),
-            "model" => $this->faker->word(),
-            "nickname" => $this->faker->word(),
+            'user_id' => User::factory(),
+            'make' => $this->faker->word(),
+            'model' => $this->faker->word(),
+            'nickname' => $this->faker->word(),
         ];
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Controllers;
+namespace Tests\Feature\Controllers\GolfBagController;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -10,6 +10,7 @@ use Tests\TestCase;
 class IndexGolfBagControllerTest extends TestCase
 {
     use RefreshDatabase;
+
     public function test_it_returns_all_golfbags_for_a_user_when_fewer_than_10_exist(): void
     {
         $numGolfBags = 5;
@@ -20,10 +21,9 @@ class IndexGolfBagControllerTest extends TestCase
             ->assertOk();
 
         $response
-            ->assertJson(fn (AssertableJson $json) =>
-                $json->has('meta')
-                     ->has('links')
-                     ->has('data', $numGolfBags));
+            ->assertJson(fn (AssertableJson $json) => $json->has('meta')
+                ->has('links')
+                ->has('data', $numGolfBags));
     }
 
     public function test_it_does_not_allow_guest_access(): void
@@ -44,12 +44,10 @@ class IndexGolfBagControllerTest extends TestCase
             ->assertOk();
 
         $response
-            ->assertJson(fn (AssertableJson $json) =>
-            $json->has('meta')
+            ->assertJson(fn (AssertableJson $json) => $json->has('meta')
                 ->has('links')
-                ->has('data', 3, fn (AssertableJson $json) =>
-                    $json->where('user_id', $user->id)
-                         ->etc()));
+                ->has('data', 3, fn (AssertableJson $json) => $json->where('user_id', $user->id)
+                    ->etc()));
     }
 
     public function test_it_paginates_golfbag_index_responses_with_10_per_page_when_greater_than_10_exist(): void
@@ -58,16 +56,15 @@ class IndexGolfBagControllerTest extends TestCase
         $numGolfbagsPerPage = 10;
         $user = User::factory()->hasGolfBags($numGolfbags)->create();
 
-        $this->assertDatabaseCount('golf_bags', $numGolfbags );
+        $this->assertDatabaseCount('golf_bags', $numGolfbags);
 
         $response = $this->actingAs($user)
             ->getJson(route('golfbags.index'))
             ->assertOk();
 
         $response
-            ->assertJson(fn (AssertableJson $json) =>
-                $json->has('meta')
-                     ->has('links')
-                     ->has('data', $numGolfbagsPerPage));
+            ->assertJson(fn (AssertableJson $json) => $json->has('meta')
+                ->has('links')
+                ->has('data', $numGolfbagsPerPage));
     }
 }

@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\GolfBagResource;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
 use App\Models\GolfBag;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class GolfBagController extends Controller
 {

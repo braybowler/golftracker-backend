@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Feature\Controllers;
+namespace Tests\Feature\Controllers\GolfBagController;
 
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class StoreGolfBagControllerTest extends TestCase
 {
@@ -17,14 +17,14 @@ class StoreGolfBagControllerTest extends TestCase
         $this->assertDatabaseCount('golf_bags', 0);
 
         $this->actingAs($user)
-                ->postJson(
-                    route('golfbags.store',
+            ->postJson(
+                route('golfbags.store',
                     [
-                        'make' =>  'Test Bag',
+                        'make' => 'Test Bag',
                         'model' => 'Test Model',
                         'nickname' => 'Test Nickname',
                     ])
-                )->assertCreated();
+            )->assertCreated();
 
         $this->assertDatabaseCount('golf_bags', 1);
     }
@@ -37,11 +37,11 @@ class StoreGolfBagControllerTest extends TestCase
         $this->actingAs($user)
             ->postJson(
                 route('golfbags.store',
-                [
-                    'make' =>  'Test Bag',
-                    'model' => 'Test Model',
-                    'nickname' => 'Test Nickname',
-                ]
+                    [
+                        'make' => 'Test Bag',
+                        'model' => 'Test Model',
+                        'nickname' => 'Test Nickname',
+                    ]
                 )
             )->assertCreated();
 
@@ -54,7 +54,7 @@ class StoreGolfBagControllerTest extends TestCase
         $this->postJson(
             route('golfbags.store',
                 [
-                    'make' =>  'Test Bag',
+                    'make' => 'Test Bag',
                     'model' => 'Test Model',
                     'nickname' => 'Test Nickname',
                 ]
@@ -73,19 +73,18 @@ class StoreGolfBagControllerTest extends TestCase
             ->postJson(
                 route('golfbags.store'),
                 [
-                    'make' =>  $make,
+                    'make' => $make,
                     'model' => $model,
                     'nickname' => $nickname,
                 ]
             )->assertCreated();
 
         $response
-            ->assertJson(fn (AssertableJson $json) =>
-                $json->where('user_id', $user->id)
-                     ->where('make', $make)
-                     ->where('model', $model)
-                     ->where('nickname', $nickname)
-                     ->etc()
+            ->assertJson(fn (AssertableJson $json) => $json->where('user_id', $user->id)
+                ->where('make', $make)
+                ->where('model', $model)
+                ->where('nickname', $nickname)
+                ->etc()
             );
     }
 }
