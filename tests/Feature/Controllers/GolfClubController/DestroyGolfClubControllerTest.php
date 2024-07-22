@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Controllers\GolfBagController;
+namespace Tests\Feature\Controllers\GolfClubController;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -10,45 +10,23 @@ class DestroyGolfClubControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_it_deletes_a_golfbag()
+    public function test_it_deletes_a_golfclub()
     {
-        $user = User::factory()->hasGolfBags()->create();
-        $golfbag = $user->golfBags()->first();
-
-        $this->assertDatabaseCount('golf_bags', 1);
-
-        $this->actingAs($user)
-            ->deleteJson(route('golfbags.destroy', ['golfbag' => $golfbag->id]))
-            ->assertNoContent();
-
-        $this->assertDatabaseCount('golf_bags', 0);
+        $this->markTestIncomplete('TODO');
     }
 
     public function test_it_does_not_allow_guest_access(): void
     {
-        $this->deleteJson(route('golfbags.destroy', ['golfbag' => 1]))
-            ->assertUnauthorized();
+        $this->markTestIncomplete('TODO');
     }
 
-    public function test_it_does_not_allow_access_to_other_users_golfbags(): void
+    public function test_it_does_not_allow_access_to_other_users_golfclubs(): void
     {
-        $user = User::factory()->hasGolfBags(1)->create();
-        $userTwo = User::factory()->hasGolfBags(1)->create();
-
-        $inaccessibleGolfBag = $userTwo->golfBags()->first();
-
-        $this->actingAs($user)
-            ->deleteJson(
-                route('golfbags.destroy', ['golfbag' => $inaccessibleGolfBag->id]))
-            ->assertNotFound();
+        $this->markTestIncomplete('TODO');
     }
 
-    public function test_it_returns_a_404_status_code_for_patch_requests_for_golfbags_that_do_not_exist(): void
+    public function test_it_returns_a_404_status_code_for_delete_requests_for_golfclubs_that_do_not_exist(): void
     {
-        $user = User::factory()->hasGolfBags(1)->create();
-
-        $this->actingAs($user)
-            ->deleteJson(route('golfbags.destroy', ['golfbag' => -1])
-            )->assertNotFound();
+        $this->markTestIncomplete('TODO');
     }
 }
