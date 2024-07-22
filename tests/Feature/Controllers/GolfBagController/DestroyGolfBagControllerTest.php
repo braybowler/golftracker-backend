@@ -43,7 +43,7 @@ class DestroyGolfBagControllerTest extends TestCase
             ->assertNotFound();
     }
 
-    public function test_it_returns_a_404_status_code_for_patch_requests_for_golfbags_that_do_not_exist(): void
+    public function test_it_returns_a_404_status_code_for_delete_requests_for_golfbags_that_do_not_exist(): void
     {
         $user = User::factory()->hasGolfBags(1)->create();
 

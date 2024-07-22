@@ -49,4 +49,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(GolfBag::class);
     }
+
+    public function golfClubs(): HasMany
+    {
+        return $this->hasMany(GolfClub::class);
+    }
 }

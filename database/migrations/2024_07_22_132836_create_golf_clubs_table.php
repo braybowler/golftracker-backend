@@ -9,18 +9,20 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('golf_bags', function (Blueprint $table) {
+        Schema::create('golf_clubs', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class);
             $table->string('make');
             $table->string('model');
-            $table->string('nickname');
+            $table->integer('carry_distance')->nullable();
+            $table->integer('total_distance')->nullable();
+            $table->integer('loft')->nullable();
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('golf_bags');
+        Schema::dropIfExists('golf_clubs');
     }
 };
