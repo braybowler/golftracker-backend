@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GolfBagRequest;
 use App\Http\Resources\GolfBagResource;
 use App\Models\GolfBag;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class GolfBagController extends Controller
 {
@@ -14,19 +14,15 @@ class GolfBagController extends Controller
         return GolfBagResource::collection(auth()->user()->golfBags()->paginate(10));
     }
 
-    public function store(Request $request)
+    public function store(GolfBagRequest $request)
     {
-        $request->validate([
-            'make' => 'bail|required|string|max:255',
-            'model' => 'bail|required|string|max:255',
-            'nickname' => 'string|max:255',
-        ]);
+        $validated = $request->safe()->all();
 
         $golfBag = GolfBag::create([
             'user_id' => auth()->id(),
-            'make' => $request->input('make'),
-            'model' => $request->input('model'),
-            'nickname' => $request->input('nickname') ?? '',
+            'make' => $validated['make'],
+            'model' => $validated['model'],
+            'nickname' => $validated['nickname'] ?? '',
         ]);
 
         return response()->json(GolfBagResource::make($golfBag), 201);
@@ -39,20 +35,16 @@ class GolfBagController extends Controller
         return response()->json(GolfBagResource::make($golfBag));
     }
 
-    public function update(Request $request, string $id)
+    public function update(GolfBagRequest $request, string $id)
     {
-        $request->validate([
-            'make' => 'bail|required|string|max:255',
-            'model' => 'bail|required|string|max:255',
-            'nickname' => 'string|max:255',
-        ]);
+        $validated = $request->safe()->all();
 
         $golfBag = GolfBag::where('user_id', auth()->id())->findOrFail($id);
 
         $golfBag->update([
-            'make' => $request->input('make'),
-            'model' => $request->input('model'),
-            'nickname' => $request->input('nickname') ? $request->input('nickname') : '',
+            'make' => $validated['make'],
+            'model' => $validated['model'],
+            'nickname' => $validated['nickname'] ? : '',
             'updated_at' => Carbon::now(),
         ]);
 
