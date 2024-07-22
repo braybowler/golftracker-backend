@@ -18,12 +18,12 @@ class StoreGolfBagControllerTest extends TestCase
 
         $this->actingAs($user)
             ->postJson(
-                route('golfbags.store',
-                    [
-                        'make' => 'Test Bag',
-                        'model' => 'Test Model',
-                        'nickname' => 'Test Nickname',
-                    ])
+                route('golfbags.store'),
+                [
+                    'make' => 'Test Bag',
+                    'model' => 'Test Model',
+                    'nickname' => 'Test Nickname',
+                ]
             )->assertCreated();
 
         $this->assertDatabaseCount('golf_bags', 1);
@@ -36,13 +36,12 @@ class StoreGolfBagControllerTest extends TestCase
 
         $this->actingAs($user)
             ->postJson(
-                route('golfbags.store',
-                    [
-                        'make' => 'Test Bag',
-                        'model' => 'Test Model',
-                        'nickname' => 'Test Nickname',
-                    ]
-                )
+                route('golfbags.store'),
+                [
+                    'make' => 'Test Bag',
+                    'model' => 'Test Model',
+                    'nickname' => 'Test Nickname',
+                ]
             )->assertCreated();
 
         $this->assertDatabaseCount('golf_bags', 1);
@@ -52,13 +51,12 @@ class StoreGolfBagControllerTest extends TestCase
     public function test_it_does_not_allow_guest_access(): void
     {
         $this->postJson(
-            route('golfbags.store',
-                [
-                    'make' => 'Test Bag',
-                    'model' => 'Test Model',
-                    'nickname' => 'Test Nickname',
-                ]
-            ),
+            route('golfbags.store'),
+            [
+                'make' => 'Test Bag',
+                'model' => 'Test Model',
+                'nickname' => 'Test Nickname',
+            ]
         )->assertUnauthorized();
     }
 
