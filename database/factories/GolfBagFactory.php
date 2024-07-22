@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\GolfClub;
+use App\Models\GolfBag;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class GolfBagFactory extends Factory
 {
-    protected $model = GolfClub::class;
+    protected $model = GolfBag::class;
 
     public function definition(): array
     {
