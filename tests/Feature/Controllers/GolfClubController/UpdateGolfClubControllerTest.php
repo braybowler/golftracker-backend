@@ -13,21 +13,126 @@ class UpdateGolfClubControllerTest extends TestCase
 
     public function test_it_updates_a_golfclub()
     {
-        $this->markTestIncomplete('TODO');
+        $make = 'Test Make';
+        $model = 'Test Model';
+        $loft = 46;
+        $carryDistance = 130;
+        $totalDistance = 130;
+
+        $user = User::factory()->hasGolfClubs(1, [
+            'make' => $make,
+            'model' => $model,
+            'loft' => $loft,
+            'carry_distance' => $carryDistance,
+            'total_distance' => $totalDistance,
+        ])->create();
+
+        $golfClub = $user->golfClubs()->first();
+
+        $this->assertDatabaseHas('golf_clubs', [
+            'user_id' => $user->id,
+            'make' => $make,
+            'model' => $model,
+            'loft' => $loft,
+            'carry_distance' => $carryDistance,
+            'total_distance' => $totalDistance,
+        ]);
+
+        $make = 'Some Other Make';
+        $model = 'Some Other Model';
+
+        $response = $this->actingAs($user)
+            ->patchJson(
+                route('golfclubs.update', ['golfclub' => $golfClub->id]),
+                [
+                    'make' => $make,
+                    'model' => $model,
+                    'loft' => $loft,
+                    'carry_distance' => $carryDistance,
+                    'total_distance' => $totalDistance,
+                ])
+            ->assertOk();
+
+        $this->assertDatabaseHas('golf_clubs', [
+            'make' => $make,
+            'model' => $model,
+            'loft' => $loft,
+            'carry_distance' => $carryDistance,
+            'total_distance' => $totalDistance,
+        ]);
+
+        $response
+            ->assertJson(fn (AssertableJson $json) =>
+            $json->where('user_id', $user->id)
+                    ->where('id', $golfClub->id)
+                    ->where('make', $make)
+                    ->where('model', $model)
+                    ->where('loft', $loft)
+                    ->where('carry_distance', $carryDistance)
+                    ->where('total_distance', $totalDistance)
+                    ->etc()
+            );
     }
 
     public function test_it_does_not_allow_guest_access(): void
     {
-        $this->markTestIncomplete('TODO');
+        $this->patchJson(route('golfclubs.update', ['golfclub' => 1]))
+            ->assertUnauthorized();
     }
 
     public function test_it_does_not_allow_access_to_other_users_golfclubs(): void
     {
-        $this->markTestIncomplete('TODO');
+        $make = 'Test Make';
+        $model = 'Test Model';
+        $loft = 46;
+        $carryDistance = 130;
+        $totalDistance = 130;
+
+        $user = User::factory()->hasGolfClubs(1, [
+            'make' => $make,
+            'model' => $model,
+            'loft' => $loft,
+            'carry_distance' => $carryDistance,
+            'total_distance' => $totalDistance,
+        ])->create();
+
+        $userTwo = User::factory()->hasGolfClubs(1, [
+            'make' => $make,
+            'model' => $model,
+            'loft' => $loft,
+            'carry_distance' => $carryDistance,
+            'total_distance' => $totalDistance,
+        ])->create();
+
+        $inaccessibleGolfClub = $userTwo->golfClubs()->first();
+
+        $make = 'Some Other Make';
+        $model = 'Some Other Model';
+
+        $this->actingAs($user)
+            ->patchJson(
+                route('golfclubs.update', ['golfclub' => $inaccessibleGolfClub->id]),
+                [
+                    'make' => $make,
+                    'model' => $model,
+                    'loft' => $loft,
+                    'carry_distance' => $carryDistance,
+                    'total_distance' => $totalDistance,
+                ])
+            ->assertNotFound();
     }
 
     public function test_it_returns_a_404_status_code_for_patch_requests_for_golfclubs_that_do_not_exist(): void
     {
-        $this->markTestIncomplete('TODO');
+        $user = User::factory()->hasGolfClubs(1)->create();
+
+        $this->actingAs($user)
+            ->patchJson(route('golfclubs.update', ['golfclub' => -1]), [
+                'make' => 'Titleist',
+                'model' => 'MB',
+                'loft' => 46,
+                'carry_distance' => 130,
+                'total_distance' => 130,
+            ])->assertNotFound();
     }
 }

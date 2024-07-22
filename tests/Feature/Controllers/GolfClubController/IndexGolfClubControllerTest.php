@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Controllers\GolfBagController;
+namespace Tests\Feature\Controllers\GolfClubController;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
