@@ -4,6 +4,7 @@ namespace Tests\Feature\Requests;
 
 use App\Models\User;
 use Tests\TestCase;
+
 class GolfBagRequestTest extends TestCase
 {
     public function test_it_validates_the_make_attribute_of_a_golfbag_request_is_required()

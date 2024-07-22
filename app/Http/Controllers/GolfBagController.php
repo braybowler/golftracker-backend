@@ -44,7 +44,7 @@ class GolfBagController extends Controller
         $golfBag->update([
             'make' => $validated['make'],
             'model' => $validated['model'],
-            'nickname' => $validated['nickname'] ? : '',
+            'nickname' => $validated['nickname'] ?: '',
             'updated_at' => Carbon::now(),
         ]);
 
