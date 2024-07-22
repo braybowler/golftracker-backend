@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Requests;
+namespace Tests\Feature\Requests\GolfBag;
 
 use App\Models\User;
 use Tests\TestCase;
