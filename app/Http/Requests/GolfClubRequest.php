@@ -11,6 +11,8 @@ class GolfClubRequest extends FormRequest
         return [
             'make' => 'bail|required|string|max:255',
             'model' => 'bail|required|string|max:255',
+            'club_category' => 'bail|required',
+            'club_type' => 'bail|required',
             'carry_distance' => 'sometimes|nullable|integer',
             'total_distance' => 'sometimes|nullable|integer',
             'loft' => 'sometimes|nullable|integer',
