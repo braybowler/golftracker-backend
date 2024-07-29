@@ -22,6 +22,8 @@ class GolfClubController extends Controller
             'user_id' => auth()->id(),
             'make' => $validated['make'],
             'model' => $validated['model'],
+            'club_category' => $validated['club_category'],
+            'club_type' => $validated['club_type'],
             'carry_distance' => $validated['carry_distance'],
             'total_distance' => $validated['total_distance'],
             'loft' => $validated['loft'],

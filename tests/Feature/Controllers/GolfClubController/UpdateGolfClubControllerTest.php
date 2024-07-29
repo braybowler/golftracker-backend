@@ -2,6 +2,8 @@
 
 namespace Tests\Feature\Controllers\GolfBagController;
 
+use App\Enums\ClubCategory;
+use App\Enums\ClubType;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
@@ -13,9 +15,11 @@ class UpdateGolfClubControllerTest extends TestCase
 
     public function test_it_updates_a_golfclub()
     {
-        $make = 'Test Make';
-        $model = 'Test Model';
+        $make = 'Titleist';
+        $model = 'MB';
         $loft = 46;
+        $clubCategory = ClubCategory::WEDGE;
+        $clubType = ClubType::PW;
         $carryDistance = 130;
         $totalDistance = 130;
 
@@ -23,6 +27,8 @@ class UpdateGolfClubControllerTest extends TestCase
             'make' => $make,
             'model' => $model,
             'loft' => $loft,
+            'club_category' => $clubCategory->value,
+            'club_type' => $clubType->value,
             'carry_distance' => $carryDistance,
             'total_distance' => $totalDistance,
         ])->create();
@@ -34,6 +40,8 @@ class UpdateGolfClubControllerTest extends TestCase
             'make' => $make,
             'model' => $model,
             'loft' => $loft,
+            'club_category' => $clubCategory->value,
+            'club_type' => $clubType->value,
             'carry_distance' => $carryDistance,
             'total_distance' => $totalDistance,
         ]);
@@ -48,6 +56,8 @@ class UpdateGolfClubControllerTest extends TestCase
                     'make' => $make,
                     'model' => $model,
                     'loft' => $loft,
+                    'club_category' => $clubCategory->value,
+                    'club_type' => $clubType->value,
                     'carry_distance' => $carryDistance,
                     'total_distance' => $totalDistance,
                 ])
@@ -57,6 +67,8 @@ class UpdateGolfClubControllerTest extends TestCase
             'make' => $make,
             'model' => $model,
             'loft' => $loft,
+            'club_category' => $clubCategory->value,
+            'club_type' => $clubType->value,
             'carry_distance' => $carryDistance,
             'total_distance' => $totalDistance,
         ]);
@@ -68,6 +80,8 @@ class UpdateGolfClubControllerTest extends TestCase
                     ->where('make', $make)
                     ->where('model', $model)
                     ->where('loft', $loft)
+                    ->where('club_category', $clubCategory->value)
+                    ->where('club_type', $clubType->value)
                     ->where('carry_distance', $carryDistance)
                     ->where('total_distance', $totalDistance)
                     ->etc()
@@ -82,9 +96,11 @@ class UpdateGolfClubControllerTest extends TestCase
 
     public function test_it_does_not_allow_access_to_other_users_golfclubs(): void
     {
-        $make = 'Test Make';
-        $model = 'Test Model';
+        $make = 'Titleist';
+        $model = 'MB';
         $loft = 46;
+        $clubCategory = ClubCategory::WEDGE;
+        $clubType = ClubType::PW;
         $carryDistance = 130;
         $totalDistance = 130;
 
@@ -92,6 +108,8 @@ class UpdateGolfClubControllerTest extends TestCase
             'make' => $make,
             'model' => $model,
             'loft' => $loft,
+            'club_category' => $clubCategory->value,
+            'club_type' => $clubType->value,
             'carry_distance' => $carryDistance,
             'total_distance' => $totalDistance,
         ])->create();
@@ -100,6 +118,8 @@ class UpdateGolfClubControllerTest extends TestCase
             'make' => $make,
             'model' => $model,
             'loft' => $loft,
+            'club_category' => $clubCategory->value,
+            'club_type' => $clubType->value,
             'carry_distance' => $carryDistance,
             'total_distance' => $totalDistance,
         ])->create();
@@ -116,6 +136,8 @@ class UpdateGolfClubControllerTest extends TestCase
                     'make' => $make,
                     'model' => $model,
                     'loft' => $loft,
+                    'club_category' => $clubCategory->value,
+                    'club_type' => $clubType->value,
                     'carry_distance' => $carryDistance,
                     'total_distance' => $totalDistance,
                 ])
@@ -131,6 +153,8 @@ class UpdateGolfClubControllerTest extends TestCase
                 'make' => 'Titleist',
                 'model' => 'MB',
                 'loft' => 46,
+                'club_category' => ClubCategory::WEDGE->value,
+                'club_type' => ClubType::PW->value,
                 'carry_distance' => 130,
                 'total_distance' => 130,
             ])->assertNotFound();

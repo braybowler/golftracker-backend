@@ -2,6 +2,8 @@
 
 namespace Tests\Feature\Requests\GolfClub;
 
+use App\Enums\ClubCategory;
+use App\Enums\ClubType;
 use App\Models\User;
 use Tests\TestCase;
 
@@ -18,6 +20,8 @@ class GolfClubRequestTest extends TestCase
                     'make' => '',
                     'model' => 'Test String',
                     'loft' => 46,
+                    'club_category' => ClubCategory::WEDGE->value,
+                    'club_type' => ClubType::PW->value,
                     'carry_distance' => 130,
                     'total_distance' => 130,
                 ]
@@ -35,6 +39,8 @@ class GolfClubRequestTest extends TestCase
                     'make' => 10,
                     'model' => 'Test String',
                     'loft' => 46,
+                    'club_category' => ClubCategory::WEDGE->value,
+                    'club_type' => ClubType::PW->value,
                     'carry_distance' => 130,
                     'total_distance' => 130,
                 ]
@@ -52,6 +58,8 @@ class GolfClubRequestTest extends TestCase
                     'make' => 'Test Make',
                     'model' => '',
                     'loft' => 46,
+                    'club_category' => ClubCategory::WEDGE->value,
+                    'club_type' => ClubType::PW->value,
                     'carry_distance' => 130,
                     'total_distance' => 130,
                 ]
@@ -69,6 +77,8 @@ class GolfClubRequestTest extends TestCase
                     'make' => 'Test Make',
                     'model' => 10,
                     'loft' => 46,
+                    'club_category' => ClubCategory::WEDGE->value,
+                    'club_type' => ClubType::PW->value,
                     'carry_distance' => 130,
                     'total_distance' => 130,
                 ]
@@ -86,6 +96,8 @@ class GolfClubRequestTest extends TestCase
                     'make' => 'Test Make',
                     'model' => 'Test Model',
                     'loft' => 46,
+                    'club_category' => ClubCategory::WEDGE->value,
+                    'club_type' => ClubType::PW->value,
                     'carry_distance' => null,
                     'total_distance' => 130,
                 ]
@@ -103,6 +115,8 @@ class GolfClubRequestTest extends TestCase
                     'make' => 'Test Make',
                     'model' => 'Test Model',
                     'loft' => 46,
+                    'club_category' => ClubCategory::WEDGE->value,
+                    'club_type' => ClubType::PW->value,
                     'carry_distance' => 'Test',
                     'total_distance' => 130,
                 ]
@@ -120,6 +134,8 @@ class GolfClubRequestTest extends TestCase
                     'make' => 'Test Make',
                     'model' => 'Test Model',
                     'loft' => 46,
+                    'club_category' => ClubCategory::WEDGE->value,
+                    'club_type' => ClubType::PW->value,
                     'carry_distance' => 130,
                     'total_distance' => null,
                 ]
@@ -137,6 +153,8 @@ class GolfClubRequestTest extends TestCase
                     'make' => 'Test Make',
                     'model' => 'Test Model',
                     'loft' => 46,
+                    'club_category' => ClubCategory::WEDGE->value,
+                    'club_type' => ClubType::PW->value,
                     'carry_distance' => 130,
                     'total_distance' => 'Test',
                 ]
@@ -154,6 +172,8 @@ class GolfClubRequestTest extends TestCase
                     'make' => 'Test Make',
                     'model' => 'Test Model',
                     'loft' => 'Test',
+                    'club_category' => ClubCategory::WEDGE->value,
+                    'club_type' => ClubType::PW->value,
                     'carry_distance' => 130,
                     'total_distance' => 130,
                 ]
@@ -171,9 +191,48 @@ class GolfClubRequestTest extends TestCase
                     'make' => 'Test Make',
                     'model' => 'Test Model',
                     'loft' => null,
+                    'club_category' => ClubCategory::WEDGE->value,
+                    'club_type' => ClubType::PW->value,
                     'carry_distance' => 130,
                     'total_distance' => 130,
                 ]
             )->assertCreated();
+    }
+    public function test_it_validates_the_club_category_attribute_of_a_golfclub_request_is_required()
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user)
+            ->postJson(
+                route('golfclubs.store'),
+                [
+                    'make' => '',
+                    'model' => 'Test String',
+                    'loft' => 46,
+                    'club_category' => null,
+                    'club_type' => ClubType::PW->value,
+                    'carry_distance' => 130,
+                    'total_distance' => 130,
+                ]
+            )->assertUnprocessable();
+    }
+
+    public function test_it_validates_the_club_type_attribute_of_a_golfclub_request_is_required()
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user)
+            ->postJson(
+                route('golfclubs.store'),
+                [
+                    'make' => '',
+                    'model' => 'Test String',
+                    'loft' => 46,
+                    'club_category' => ClubCategory::WEDGE->value,
+                    'club_type' => null,
+                    'carry_distance' => 130,
+                    'total_distance' => 130,
+                ]
+            )->assertUnprocessable();
     }
 }
