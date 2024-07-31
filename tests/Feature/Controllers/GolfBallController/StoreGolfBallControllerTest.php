@@ -2,8 +2,6 @@
 
 namespace Tests\Feature\Controllers\GolfBallController;
 
-use App\Enums\ClubCategory;
-use App\Enums\ClubType;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
@@ -70,7 +68,6 @@ class StoreGolfBallControllerTest extends TestCase
         $user = User::factory()->create();
         $make = 'Titleist';
         $model = 'AVX';
-
 
         $response = $this->actingAs($user)
             ->postJson(
