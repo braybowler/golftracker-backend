@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Enums\ClubCategory;
 use App\Enums\ClubType;
 use App\Models\GolfClub;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
@@ -15,6 +16,7 @@ class GolfClubFactory extends Factory
     public function definition(): array
     {
         return [
+            'user_id' => User::factory(),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
             'make' => $this->faker->word(),

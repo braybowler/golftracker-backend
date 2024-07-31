@@ -198,6 +198,7 @@ class GolfClubRequestTest extends TestCase
                 ]
             )->assertCreated();
     }
+
     public function test_it_validates_the_club_category_attribute_of_a_golfclub_request_is_required()
     {
         $user = User::factory()->create();

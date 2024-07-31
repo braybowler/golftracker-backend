@@ -2,7 +2,8 @@
 
 namespace App\Enums;
 
-enum ClubType: string {
+enum ClubType: string
+{
     case LW = 'LW';
     case SW = 'SW';
     case GW = 'GW';
@@ -12,10 +13,10 @@ enum ClubType: string {
     case SEVEN_IRON = '7i';
     case SIX_IRON = '6i';
     case FIVE_IRON = '5i';
-    case FOUR_IRON ='4i';
-    case THREE_IRON ='3i';
-    case TWO_IRON ='2i';
-    case ONE_IRON ='1i';
+    case FOUR_IRON = '4i';
+    case THREE_IRON = '3i';
+    case TWO_IRON = '2i';
+    case ONE_IRON = '1i';
     case SEVEN_HYBRID = '7h';
     case SIX_HYBRID = '6h';
     case FIVE_HYBRID = '5h';

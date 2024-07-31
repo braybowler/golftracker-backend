@@ -39,16 +39,15 @@ class StoreGolfClubControllerTest extends TestCase
             )->assertCreated();
 
         $response
-            ->assertJson(fn (AssertableJson $json) =>
-                $json->where('user_id', $user->id)
-                        ->where('make', $make)
-                        ->where('model', $model)
-                        ->where('loft', $loft)
-                        ->where('club_category', $clubCategory->value)
-                        ->where('club_type', $clubType->value)
-                        ->where('carry_distance', $carryDistance)
-                        ->where('total_distance', $totalDistance)
-                        ->etc()
+            ->assertJson(fn (AssertableJson $json) => $json->where('user_id', $user->id)
+                ->where('make', $make)
+                ->where('model', $model)
+                ->where('loft', $loft)
+                ->where('club_category', $clubCategory->value)
+                ->where('club_type', $clubType->value)
+                ->where('carry_distance', $carryDistance)
+                ->where('total_distance', $totalDistance)
+                ->etc()
             );
     }
 
@@ -78,17 +77,17 @@ class StoreGolfClubControllerTest extends TestCase
     public function test_it_does_not_allow_guest_access(): void
     {
         $this->postJson(
-                route('golfclubs.store'),
-                [
-                    'make' => 'Titleist',
-                    'model' => 'MB',
-                    'loft' => 46,
-                    'club_category' => ClubCategory::WEDGE->value,
-                    'club_type' => ClubType::PW->value,
-                    'carry_distance' => 130,
-                    'total_distance' => 130,
-                ]
-            )->assertUnauthorized();
+            route('golfclubs.store'),
+            [
+                'make' => 'Titleist',
+                'model' => 'MB',
+                'loft' => 46,
+                'club_category' => ClubCategory::WEDGE->value,
+                'club_type' => ClubType::PW->value,
+                'carry_distance' => 130,
+                'total_distance' => 130,
+            ]
+        )->assertUnauthorized();
     }
 
     public function test_it_returns_a_json_resource_on_successful_store_requests(): void
@@ -117,14 +116,13 @@ class StoreGolfClubControllerTest extends TestCase
             )->assertCreated();
 
         $response
-            ->assertJson(fn (AssertableJson $json) =>
-                $json->where('user_id', $user->id)
-                        ->where('make', $make)
-                        ->where('model', $model)
-                        ->where('loft', $loft)
-                        ->where('carry_distance', $carryDistance)
-                        ->where('total_distance', $totalDistance)
-                        ->etc()
+            ->assertJson(fn (AssertableJson $json) => $json->where('user_id', $user->id)
+                ->where('make', $make)
+                ->where('model', $model)
+                ->where('loft', $loft)
+                ->where('carry_distance', $carryDistance)
+                ->where('total_distance', $totalDistance)
+                ->etc()
             );
     }
 }

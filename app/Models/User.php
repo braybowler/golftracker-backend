@@ -54,4 +54,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(GolfClub::class);
     }
+
+    public function golfBalls(): HasMany
+    {
+        return $this->hasMany(GolfBall::class);
+    }
 }
