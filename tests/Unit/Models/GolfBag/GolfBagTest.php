@@ -33,17 +33,19 @@ class GolfBagTest extends TestCase
 
     public function test_it_can_retrieve_all_polymorphic__models(): void
     {
+        $golfBallCount = 2;
+        $golfClubCount = 2;
         $golfBag = GolfBag::factory()
             ->hasAttached(
-                GolfBall::factory()->count(1)
+                GolfBall::factory()->count($golfBallCount)
             )
             ->hasAttached(
-                GolfClub::factory()->count(1)
+                GolfClub::factory()->count($golfClubCount)
             )
             ->create();
 
         $baggables = $golfBag->baggables()->toArray();
 
-        dd($baggables);
+        $this->assertEquals($golfBallCount + $golfClubCount, count($baggables));
     }
 }
