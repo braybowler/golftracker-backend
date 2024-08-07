@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
-class GolfBag extends Model
+class GolfBall extends Model
 {
     use HasFactory;
 
@@ -18,18 +18,8 @@ class GolfBag extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function golfBalls(): MorphToMany
+    public function golfBags(): MorphToMany
     {
-        return $this->morphedByMany(GolfBall::class, 'baggable');
-    }
-
-    public function golfClubs(): MorphToMany
-    {
-        return $this->morphedByMany(GolfClub::class, 'baggable');
-    }
-
-    public function baggables()
-    {
-        return Baggable::where('golf_bag_id', $this->id)->get();
+        return $this->morphToMany(GolfBag::class, 'baggable');
     }
 }

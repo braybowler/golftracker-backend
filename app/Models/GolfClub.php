@@ -18,7 +18,7 @@ class GolfClub extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function golfBag(): MorphToMany
+    public function golfBags(): MorphToMany
     {
         return $this->morphToMany(GolfBag::class, 'baggable');
     }

@@ -10,7 +10,7 @@ return new class extends Migration {
     {
         Schema::create('baggables', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(GolfBag::class, 'golf_bag_id');
+            $table->foreignIdFor(GolfBag::class);
             $table->foreignId('baggable_id');
             $table->string('baggable_type');
             $table->timestamps();

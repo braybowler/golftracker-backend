@@ -16,17 +16,15 @@ class GolfClubController extends Controller
 
     public function store(GolfClubRequest $request)
     {
-        $validated = $request->safe()->all();
-
         $golfClub = GolfClub::create([
             'user_id' => auth()->id(),
-            'make' => $validated['make'],
-            'model' => $validated['model'],
-            'club_category' => $validated['club_category'],
-            'club_type' => $validated['club_type'],
-            'carry_distance' => $validated['carry_distance'],
-            'total_distance' => $validated['total_distance'],
-            'loft' => $validated['loft'],
+            'make' => $request->validated('make'),
+            'model' => $request->validated('model'),
+            'club_category' => $request->validated('club_category'),
+            'club_type' => $request->validated('club_type'),
+            'carry_distance' => $request->validated('carry_distance'),
+            'total_distance' => $request->validated('total_distance'),
+            'loft' => $request->validated('loft'),
         ]);
 
         return response()->json(GolfClubResource::make($golfClub), 201);
@@ -41,16 +39,14 @@ class GolfClubController extends Controller
 
     public function update(GolfClubRequest $request, string $id)
     {
-        $validated = $request->safe()->all();
-
         $golfClub = GolfClub::where('user_id', auth()->id())->findOrFail($id);
 
         $golfClub->update([
-            'make' => $validated['make'],
-            'model' => $validated['model'],
-            'carry_distance' => $validated['carry_distance'] ?: null,
-            'total_distance' => $validated['total_distance'] ?: null,
-            'loft' => $validated['loft'] ?: null,
+            'make' => $request->validated('make'),
+            'model' => $request->validated('model'),
+            'carry_distance' => $request->validated('carry_distance') ?: null,
+            'total_distance' => $request->validated('total_distance') ?: null,
+            'loft' => $request->validated('loft') ?: null,
             'updated_at' => Carbon::now(),
         ]);
 

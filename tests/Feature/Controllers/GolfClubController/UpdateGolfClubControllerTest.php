@@ -74,17 +74,16 @@ class UpdateGolfClubControllerTest extends TestCase
         ]);
 
         $response
-            ->assertJson(fn (AssertableJson $json) =>
-            $json->where('user_id', $user->id)
-                    ->where('id', $golfClub->id)
-                    ->where('make', $make)
-                    ->where('model', $model)
-                    ->where('loft', $loft)
-                    ->where('club_category', $clubCategory->value)
-                    ->where('club_type', $clubType->value)
-                    ->where('carry_distance', $carryDistance)
-                    ->where('total_distance', $totalDistance)
-                    ->etc()
+            ->assertJson(fn (AssertableJson $json) => $json->where('user_id', $user->id)
+                ->where('id', $golfClub->id)
+                ->where('make', $make)
+                ->where('model', $model)
+                ->where('loft', $loft)
+                ->where('club_category', $clubCategory->value)
+                ->where('club_type', $clubType->value)
+                ->where('carry_distance', $carryDistance)
+                ->where('total_distance', $totalDistance)
+                ->etc()
             );
     }
 

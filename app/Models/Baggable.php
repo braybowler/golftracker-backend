@@ -2,13 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Relations\MorphPivot;
+use Illuminate\Database\Eloquent\Model;
 
-class Baggable extends MorphPivot
+class Baggable extends Model
 {
-    protected $table = 'baggables';
-    public function baggable()
-    {
-        return $this->morphTo();
-    }
+    protected $guarded = [];
 }

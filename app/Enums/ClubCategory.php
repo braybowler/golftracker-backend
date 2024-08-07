@@ -2,7 +2,8 @@
 
 namespace App\Enums;
 
-enum ClubCategory: string {
+enum ClubCategory: string
+{
     case WEDGE = 'Wedge';
     case IRON = 'Iron';
     case HYBRID = 'Hybrid';

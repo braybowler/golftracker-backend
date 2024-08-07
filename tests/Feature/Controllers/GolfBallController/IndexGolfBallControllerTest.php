@@ -1,46 +1,46 @@
 <?php
 
-namespace Tests\Feature\Controllers\GolfClubController;
+namespace Tests\Feature\Controllers\GolfBallController;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
-class IndexGolfClubControllerTest extends TestCase
+class IndexGolfBallControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_it_returns_all_golfclubs_for_a_user_when_fewer_than_10_exist(): void
+    public function test_it_returns_all_golfballs_for_a_user_when_fewer_than_10_exist(): void
     {
-        $numGolfClubs = 5;
-        $user = User::factory()->hasGolfClubs($numGolfClubs)->create();
+        $numGolfBalls = 5;
+        $user = User::factory()->hasGolfBalls($numGolfBalls)->create();
 
         $response = $this->actingAs($user)
-            ->getJson(route('golfclubs.index'))
+            ->getJson(route('golfballs.index'))
             ->assertOk();
 
         $response
             ->assertJson(fn (AssertableJson $json) => $json->has('meta')
                 ->has('links')
-                ->has('data', $numGolfClubs));
+                ->has('data', $numGolfBalls));
     }
 
     public function test_it_does_not_allow_guest_access(): void
     {
-        User::factory()->hasGolfClubs(10)->create();
+        User::factory()->hasGolfBalls(10)->create();
 
-        $this->getJson(route('golfbags.index'))
+        $this->getJson(route('golfballs.index'))
             ->assertUnauthorized();
     }
 
-    public function test_it_does_not_allow_access_to_other_users_golfclubs(): void
+    public function test_it_does_not_allow_access_to_other_users_golfballs(): void
     {
-        $user = User::factory()->hasGolfClubs(3)->create();
-        User::factory()->hasGolfClubs(3)->create();
+        $user = User::factory()->hasGolfBalls(3)->create();
+        User::factory()->hasGolfBalls(3)->create();
 
         $response = $this->actingAs($user)
-            ->getJson(route('golfclubs.index'))
+            ->getJson(route('golfballs.index'))
             ->assertOk();
 
         $response
@@ -53,19 +53,19 @@ class IndexGolfClubControllerTest extends TestCase
 
     public function test_it_paginates_golfclub_index_responses_with_10_per_page_when_greater_than_10_exist(): void
     {
-        $numGolfClubs = 15;
-        $numGolfClubsPerPage = 10;
-        $user = User::factory()->hasGolfBags($numGolfClubs)->create();
+        $numGolfBalls = 15;
+        $numGolfBallsPerPage = 10;
+        $user = User::factory()->hasGolfBalls($numGolfBalls)->create();
 
-        $this->assertDatabaseCount('golf_bags', $numGolfClubs);
+        $this->assertDatabaseCount('golf_balls', $numGolfBalls);
 
         $response = $this->actingAs($user)
-            ->getJson(route('golfbags.index'))
+            ->getJson(route('golfballs.index'))
             ->assertOk();
 
         $response
             ->assertJson(fn (AssertableJson $json) => $json->has('meta')
                 ->has('links')
-                ->has('data', $numGolfClubsPerPage));
+                ->has('data', $numGolfBallsPerPage));
     }
 }

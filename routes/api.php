@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BaggableController;
 use App\Http\Controllers\GolfBagController;
+use App\Http\Controllers\GolfBallController;
 use App\Http\Controllers\GolfClubController;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
@@ -24,4 +26,6 @@ Route::post('/register', [AuthController::class, 'register'])
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('golfbags', GolfBagController::class);
     Route::apiResource('golfclubs', GolfClubController::class);
+    Route::apiResource('golfballs', GolfBallController::class);
+    Route::apiResource('baggables', BaggableController::class);
 });
