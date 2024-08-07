@@ -6,4 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Baggable extends Model
 {
+    protected $guarded = [];
 }

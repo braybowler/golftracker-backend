@@ -16,13 +16,11 @@ class GolfBagController extends Controller
 
     public function store(GolfBagRequest $request)
     {
-        $validated = $request->safe()->all();
-
         $golfBag = GolfBag::create([
             'user_id' => auth()->id(),
-            'make' => $validated['make'],
-            'model' => $validated['model'],
-            'nickname' => $validated['nickname'] ?? '',
+            'make' => $request->validated('make'),
+            'model' => $request->validated('model'),
+            'nickname' => $request->validated('nickname') ?? '',
         ]);
 
         return response()->json(GolfBagResource::make($golfBag), 201);
@@ -37,14 +35,12 @@ class GolfBagController extends Controller
 
     public function update(GolfBagRequest $request, string $id)
     {
-        $validated = $request->safe()->all();
-
         $golfBag = GolfBag::where('user_id', auth()->id())->findOrFail($id);
 
         $golfBag->update([
-            'make' => $validated['make'],
-            'model' => $validated['model'],
-            'nickname' => $validated['nickname'] ?: '',
+            'make' => $request->validated('make'),
+            'model' => $request->validated('model'),
+            'nickname' => $request->validated('nickname') ?: '',
             'updated_at' => Carbon::now(),
         ]);
 

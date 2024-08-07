@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BaggableRequest;
 use App\Http\Resources\BaggableResource;
 use App\Models\Baggable;
+use App\Models\GolfClub;
 
 class BaggableController extends Controller
 {
@@ -15,12 +16,10 @@ class BaggableController extends Controller
 
     public function store(BaggableRequest $request)
     {
-        $validated = $request->safe()->all(); //TODO: build validation for a BaggableRequest
-
         $baggable = Baggable::create([
-            'golf_bag_id' => $validated['bag']['golf_bag_id'],
-            'baggable_id' => $validated['baggable']['id'],
-            'baggable_type' => $validated['baggable']['type'], //TODO: type isnt a field in the request. How do I type this dynamically?
+            'golf_bag_id' => $request->validated('bag.id'),
+            'baggable_id' => $request->validated('baggable.id'),
+            'baggable_type' =>$request->validated('baggable.type'),
         ]);
 
         return response()->json(BaggableResource::make($baggable), 201);

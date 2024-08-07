@@ -8,8 +8,11 @@ class BaggableRequest extends FormRequest
 {
     public function rules(): array
     {
-        //What should validation rules be for a Baggable?
-        return [];
+        return [
+            'bag.id' => 'required|integer|exists:golf_bags,id',
+            'baggable.id' => 'sometimes|integer',
+            'baggable.type' => 'bail|required|string|max:255',
+        ];
     }
 
     public function authorize(): bool

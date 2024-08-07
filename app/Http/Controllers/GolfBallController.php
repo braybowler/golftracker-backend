@@ -20,8 +20,8 @@ class GolfBallController extends Controller
 
         $golfBall = GolfBall::create([
             'user_id' => auth()->id(),
-            'make' => $validated['make'],
-            'model' => $validated['model'],
+            'make' => $request->validated('make'),
+            'model' => $request->validated('model'),
         ]);
 
         return response()->json(GolfBallResource::make($golfBall), 201);
@@ -36,13 +36,11 @@ class GolfBallController extends Controller
 
     public function update(GolfBallRequest $request, string $id)
     {
-        $validated = $request->safe()->all();
-
         $golfBall = GolfBall::where('user_id', auth()->id())->findOrFail($id);
 
         $golfBall->update([
-            'make' => $validated['make'],
-            'model' => $validated['model'],
+            'make' => $request->validated('make'),
+            'model' => $request->validated('model'),
             'updated_at' => Carbon::now(),
         ]);
 
