@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('golf_clubs', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->string('make');
             $table->string('model');
             $table->enum('club_category', ClubCategory::toArray());

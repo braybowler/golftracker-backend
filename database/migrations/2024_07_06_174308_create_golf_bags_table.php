@@ -11,7 +11,7 @@ return new class extends Migration
     {
         Schema::create('golf_bags', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->string('make');
             $table->string('model');
             $table->string('nickname');
