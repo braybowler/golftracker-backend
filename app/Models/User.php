@@ -50,6 +50,11 @@ class User extends Authenticatable
         return $this->hasMany(GolfBag::class);
     }
 
+    public function equippables()
+    {
+        return Equippable::where('user_id', $this->id)->get();
+    }
+
     public function golfClubs(): HasMany
     {
         return $this->hasMany(GolfClub::class);

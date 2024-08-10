@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class BaggableRequest extends FormRequest
+class EquippableRequest extends FormRequest
 {
     public function rules(): array
     {
         return [
-            'bag.id' => 'required|integer|exists:golf_bags,id',
-            'baggable.id' => 'required|integer',
-            'baggable.type' => 'required|string|max:255',
+            'user.id' => 'required|integer|exists:users,id',
+            'equippable.id' => 'required|integer',
+            'equippable.type' => 'required|string|max:255',
         ];
     }
 
