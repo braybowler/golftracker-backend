@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
+    public function me()
+    {
+        return response()->json([
+            'user' => auth()->user(),
+        ]);
+    }
     public function register(Request $request)
     {
         $request->validate([
@@ -46,7 +52,6 @@ class AuthController extends Controller
 
     public function logout()
     {
-        //TODO: (d/w Jacob) Why does the guard have to be set to 'web' for this to work.
         auth()->guard('web')->logout();
 
         return response()->json([], 204);

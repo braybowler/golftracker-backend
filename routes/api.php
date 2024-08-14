@@ -16,6 +16,9 @@ Route::get('/healthcheck', function () {
     return new Response(json_encode('Server is responding.'), 200);
 });
 
+Route::get('/me', [AuthController::class, 'me'])
+    ->middleware('auth:sanctum')
+    ->name('auth.me');
 Route::post('/login', [AuthController::class, 'login'])
     ->name('auth.login');
 Route::post('/logout', [AuthController::class, 'logout'])
