@@ -16,13 +16,4 @@ class PracticeSession extends Model
     {
         return $this->belongsTo(User::class);
     }
-
-    protected function casts(): array
-    {
-        return [
-            'date' => 'datetime',
-            'start_time' => 'datetime',
-            'end_time' => 'datetime',
-        ];
-    }
 }

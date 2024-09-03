@@ -15,7 +15,15 @@ class PracticeSessionController extends Controller
 
     public function store(PracticeSessionRequest $request)
     {
-        $practiceSession = PracticeSession::create($request->validated());
+        $practiceSession = PracticeSession::create([
+            'user_id' => auth()->user()->id,
+            'date' => $request->validated('date'),
+            'note' => $request->validated('note'),
+            'start_time' => $request->validated('start_time'),
+            'end_time' => $request->validated('end_time'),
+            'temperature' => $request->validated('temperature'),
+            'wind_speed' => $request->validated('wind_speed'),
+        ]);
         return response()->json(PracticeSessionResource::make($practiceSession), 201);
     }
 
