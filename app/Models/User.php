@@ -50,9 +50,9 @@ class User extends Authenticatable
         return $this->hasMany(GolfBag::class);
     }
 
-    public function equippables()
+    public function golfBalls(): HasMany
     {
-        return Equippable::where('user_id', $this->id)->get();
+        return $this->hasMany(GolfBall::class);
     }
 
     public function golfClubs(): HasMany
@@ -60,8 +60,13 @@ class User extends Authenticatable
         return $this->hasMany(GolfClub::class);
     }
 
-    public function golfBalls(): HasMany
+    public function practiceSessions(): HasMany
     {
-        return $this->hasMany(GolfBall::class);
+        return $this->hasMany(PracticeSession::class);
+    }
+
+    public function equippables()
+    {
+        return Equippable::where('user_id', $this->id)->get();
     }
 }
