@@ -1,54 +1,54 @@
 <?php
 
-namespace Tests\Feature\Controllers\GolfClubController;
+namespace Tests\Feature\Controllers\PracticeSessionController;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class DestroyGolfClubControllerTest extends TestCase
+class DestroyPracticeSessionControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_it_deletes_a_golfclub()
+    public function test_it_deletes_a_practicesession()
     {
-        $user = User::factory()->hasGolfClubs()->create();
-        $golfClub = $user->golfClubs()->first();
+        $user = User::factory()->hasPracticeSessions()->create();
+        $practiceSession = $user->practiceSessions()->first();
 
-        $this->assertDatabaseCount('golf_clubs', 1);
+        $this->assertDatabaseCount('practice_sessions', 1);
 
         $this->actingAs($user)
-            ->deleteJson(route('golfclubs.destroy', ['golfclub' => $golfClub->id]))
+            ->deleteJson(route('practicesessions.destroy', ['practicesession' => $practiceSession->id]))
             ->assertNoContent();
 
-        $this->assertDatabaseCount('golf_clubs', 0);
+        $this->assertDatabaseCount('practice_sessions', 0);
     }
 
     public function test_it_does_not_allow_guest_access(): void
     {
-        $this->deleteJson(route('golfclubs.destroy', ['golfclub' => 1]))
+        $this->deleteJson(route('practicesessions.destroy', ['practicesession' => 1]))
             ->assertUnauthorized();
     }
 
     public function test_it_does_not_allow_access_to_other_users_golfclubs(): void
     {
-        $user = User::factory()->hasGolfClubs(1)->create();
-        $userTwo = User::factory()->hasGolfClubs(1)->create();
+        $user = User::factory()->hasPracticeSessions(1)->create();
+        $userTwo = User::factory()->hasPracticeSessions(1)->create();
 
-        $inaccessibleGolfClub = $userTwo->golfClubs()->first();
+        $inaccessiblePracticeSession = $userTwo->practiceSessions()->first();
 
         $this->actingAs($user)
             ->deleteJson(
-                route('golfclubs.destroy', ['golfclub' => $inaccessibleGolfClub->id]))
+                route('practicesessions.destroy', ['practicesession' => $inaccessiblePracticeSession->id]))
             ->assertNotFound();
     }
 
-    public function test_it_returns_a_404_status_code_for_delete_requests_for_golfclubs_that_do_not_exist(): void
+    public function test_it_returns_a_404_status_code_for_delete_requests_for_practicesessions_that_do_not_exist(): void
     {
-        $user = User::factory()->hasGolfClubs(1)->create();
+        $user = User::factory()->hasPracticeSessions(1)->create();
 
         $this->actingAs($user)
-            ->deleteJson(route('golfclubs.destroy', ['golfclub' => -1])
-            )->assertNotFound();
+            ->deleteJson(route('practicesessions.destroy', ['practicesession' => -1]))
+            ->assertNotFound();
     }
 }
