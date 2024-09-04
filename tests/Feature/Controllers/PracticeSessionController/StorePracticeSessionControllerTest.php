@@ -2,8 +2,6 @@
 
 namespace Tests\Feature\Controllers\PracticeSessionController;
 
-use App\Enums\ClubCategory;
-use App\Enums\ClubType;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
