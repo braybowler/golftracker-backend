@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->dateTime('end_time')->nullable();
             $table->integer('temperature')->nullable();
             $table->integer('wind_speed')->nullable();
+            $table->boolean('is_complete')->default(false);
             $table->timestamps();
         });
     }
