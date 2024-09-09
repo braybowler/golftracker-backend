@@ -25,6 +25,7 @@ class AuthController extends Controller
             'email' => $request->input('email'),
             'name' => $request->input('name'),
             'password' => $request->input('password'),
+            'last_active_at' => now(),
         ]);
 
         auth()->login($user);
@@ -52,6 +53,10 @@ class AuthController extends Controller
 
     public function logout()
     {
+        $user = auth()->user();
+
+        $user->update(['last_active_at' => now()]);
+
         auth()->guard('web')->logout();
 
         return response()->json([], 204);
