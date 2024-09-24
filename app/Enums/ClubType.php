@@ -31,7 +31,8 @@ enum ClubType: string
     case THREE_WOOD = '3w';
     case TWO_WOOD = '2w';
     case ONE_WOOD = '1w';
-    case PUTTER = 'Putter';
+    case BLADE_PUTTER = 'Blade';
+    case MALLET_PUTTER = 'Mallet';
 
     public static function toArray(): array
     {

@@ -51,7 +51,6 @@ class PracticeSessionController extends Controller
 
         return response()->json(PracticeSessionResource::make($practiceSession));
     }
-
     public function destroy(string $id)
     {
         $practiceSession = PracticeSession::where('user_id', auth()->id())->findOrFail($id);
