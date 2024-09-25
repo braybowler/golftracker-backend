@@ -19,6 +19,7 @@ class GolfClubResource extends JsonResource
             'id' => $this->id,
             'type' => (new GolfClub())->getMorphClass(),
             'user_id' => $this->user_id,
+            'sort_index' => $this->sort_index,
             'make' => $this->make,
             'model' => $this->model,
             'club_category' => $this->club_category,
