@@ -11,7 +11,7 @@ class IndexGolfClubControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_it_returns_all_golfclubs_for_a_user_when_fewer_than_10_exist(): void
+    public function test_it_returns_all_golfclubs_for_a_user_when_fewer_than_15_exist(): void
     {
         $numGolfClubs = 5;
         $user = User::factory()->hasGolfClubs($numGolfClubs)->create();
@@ -30,7 +30,7 @@ class IndexGolfClubControllerTest extends TestCase
     {
         User::factory()->hasGolfClubs(10)->create();
 
-        $this->getJson(route('golfbags.index'))
+        $this->getJson(route('golfclubs.index'))
             ->assertUnauthorized();
     }
 
@@ -51,16 +51,16 @@ class IndexGolfClubControllerTest extends TestCase
                     ->etc()));
     }
 
-    public function test_it_paginates_golfclub_index_responses_with_10_per_page_when_greater_than_10_exist(): void
+    public function test_it_paginates_golfclub_index_responses_with_15_per_page_when_greater_than_15_exist(): void
     {
-        $numGolfClubs = 15;
-        $numGolfClubsPerPage = 10;
-        $user = User::factory()->hasGolfBags($numGolfClubs)->create();
+        $numGolfClubs = 20;
+        $numGolfClubsPerPage = 15;
+        $user = User::factory()->hasGolfClubs($numGolfClubs)->create();
 
-        $this->assertDatabaseCount('golf_bags', $numGolfClubs);
+        $this->assertDatabaseCount('golf_clubs', $numGolfClubs);
 
         $response = $this->actingAs($user)
-            ->getJson(route('golfbags.index'))
+            ->getJson(route('golfclubs.index'))
             ->assertOk();
 
         $response

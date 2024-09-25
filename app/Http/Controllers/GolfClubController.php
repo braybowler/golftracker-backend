@@ -11,7 +11,7 @@ class GolfClubController extends Controller
 {
     public function index()
     {
-        return GolfClubResource::collection(auth()->user()->golfClubs()->paginate(10));
+        return GolfClubResource::collection(auth()->user()->golfClubs()->paginate(15));
     }
 
     public function store(GolfClubRequest $request)
