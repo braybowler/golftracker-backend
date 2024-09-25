@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ClubType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,6 +13,13 @@ class GolfClub extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    protected static function booted()
+    {
+        static::saving(function (self $golfClub) {
+            $golfClub->sort_index = ClubType::from($golfClub->club_type)->sortIndex();
+        });
+    }
 
     public function user(): BelongsTo
     {

@@ -38,4 +38,37 @@ enum ClubType: string
     {
         return array_column(ClubType::cases(), 'value');
     }
+
+    public function sortIndex(): int {
+        return match ($this) {
+            self::BLADE_PUTTER, self::MALLET_PUTTER => 0,
+            self::LW => 1,
+            self::SW => 2,
+            self::GW => 3,
+            self::PW => 4,
+            self::NINE_IRON => 5,
+            self::EIGHT_IRON => 6,
+            self::SEVEN_IRON => 7,
+            self::SIX_IRON => 8,
+            self::FIVE_IRON => 9,
+            self::FOUR_IRON => 10,
+            self::THREE_IRON => 11,
+            self::TWO_IRON => 12,
+            self::ONE_IRON => 13,
+            self::SEVEN_HYBRID => 14,
+            self::SIX_HYBRID => 15,
+            self::FIVE_HYBRID => 16,
+            self::FOUR_HYBRID => 17,
+            self::THREE_HYBRID => 18,
+            self::TWO_HYBRID => 19,
+            self::ONE_HYBRID => 20,
+            self::NINE_WOOD => 21,
+            self::SEVEN_WOOD => 22,
+            self::FIVE_WOOD => 23,
+            self::FOUR_WOOD => 24,
+            self::THREE_WOOD => 25,
+            self::TWO_WOOD => 26,
+            self::ONE_WOOD => 27,
+        };
+    }
 }
