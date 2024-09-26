@@ -7,6 +7,7 @@ use App\Http\Controllers\GolfBagController;
 use App\Http\Controllers\GolfBallController;
 use App\Http\Controllers\GolfClubController;
 use App\Http\Controllers\PracticeSessionController;
+use App\Http\Controllers\YardageController;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 
@@ -35,4 +36,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('baggables', BaggableController::class);
     Route::apiResource('equippables', EquippableController::class);
     Route::apiResource('practicesessions', PracticeSessionController::class);
+    Route::apiResource('yardages', YardageController::class);
 });

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -64,6 +65,11 @@ class User extends Authenticatable
     public function practiceSessions(): HasMany
     {
         return $this->hasMany(PracticeSession::class);
+    }
+
+    public function yardages(): HasManyThrough
+    {
+        return $this->hasManyThrough(Yardage::class, GolfClub::class);
     }
 
     public function equippables()
