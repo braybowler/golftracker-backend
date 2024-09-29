@@ -33,44 +33,35 @@ class IndexYardageControllerTest extends TestCase
 
     public function test_it_does_not_allow_guest_access(): void
     {
-        User::factory()->hasPracticeSessions(10)->create();
+        User::factory()->hasYardages()->create();
 
-        $this->getJson(route('practicesessions.index'))
+        $this->getJson(route('yardages.index'))
             ->assertUnauthorized();
     }
 
-    public function test_it_does_not_allow_access_to_other_users_practicesessions(): void
+    public function test_it_does_not_allow_access_to_other_users_yardages(): void
     {
-        $user = User::factory()->hasPracticeSessions(3)->create();
-        User::factory()->hasPracticeSessions(3)->create();
+        $user = User::factory()->has(
+            GolfClub::factory()->has(
+                Yardage::factory()->count(3)
+            )
+        )->create();
+
+        User::factory()->has(
+            GolfClub::factory()->has(
+                Yardage::factory()->count(3)
+            )
+        )->create();
 
         $response = $this->actingAs($user)
-            ->getJson(route('practicesessions.index'))
+            ->getJson(route('yardages.index'))
             ->assertOk();
 
         $response
             ->assertJson(fn (AssertableJson $json) => $json
                 ->has('meta')
                 ->has('links')
-                ->has('data', 3, fn (AssertableJson $json) => $json->where('user_id', $user->id)
+                ->has('data', 3, fn (AssertableJson $json) => $json->where('golf_club_id', $user->golfClubs()->first()->id)
                     ->etc()));
-    }
-
-    public function test_it_paginates_golfclub_index_responses_with_10_per_page_when_greater_than_10_exist(): void
-    {
-        $numPracticeSessions = 15;
-        $numPracticeSessionsPerPage = 10;
-        $user = User::factory()->hasPracticeSessions($numPracticeSessions)->create();
-
-        $this->assertDatabaseCount('practice_sessions', $numPracticeSessions);
-
-        $response = $this->actingAs($user)
-            ->getJson(route('practicesessions.index'))
-            ->assertOk();
-
-        $response
-            ->assertJson(fn (AssertableJson $json) => $json->has('meta')
-                ->has('links')
-                ->has('data', $numPracticeSessionsPerPage));
     }
 }
