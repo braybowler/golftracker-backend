@@ -11,7 +11,7 @@ class GolfClubController extends Controller
 {
     public function index()
     {
-        return GolfClubResource::collection(auth()->user()->golfClubs()->paginate(15));
+        return GolfClubResource::collection(auth()->user()->golfClubs()->with('yardages')->paginate(15));
     }
 
     public function store(GolfClubRequest $request)
@@ -22,8 +22,6 @@ class GolfClubController extends Controller
             'model' => $request->validated('model'),
             'club_category' => $request->validated('club_category'),
             'club_type' => $request->validated('club_type'),
-            'carry_distance' => $request->validated('carry_distance'),
-            'total_distance' => $request->validated('total_distance'),
             'loft' => $request->validated('loft'),
         ]);
 
@@ -44,8 +42,6 @@ class GolfClubController extends Controller
         $golfClub->update([
             'make' => $request->validated('make'),
             'model' => $request->validated('model'),
-            'carry_distance' => $request->validated('carry_distance') ?: null,
-            'total_distance' => $request->validated('total_distance') ?: null,
             'loft' => $request->validated('loft') ?: null,
             'updated_at' => Carbon::now(),
         ]);

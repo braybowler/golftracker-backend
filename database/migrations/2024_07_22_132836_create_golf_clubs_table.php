@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string('model');
             $table->enum('club_category', ClubCategory::toArray());
             $table->enum('club_type', ClubType::toArray());
-            $table->integer('carry_distance')->nullable();
-            $table->integer('total_distance')->nullable();
             $table->integer('loft')->nullable();
             $table->timestamps();
         });

@@ -23,8 +23,6 @@ class GolfClubFactory extends Factory
             'model' => $this->faker->word(),
             'club_category' => $this->faker->randomElement(ClubCategory::toArray()),
             'club_type' => $this->faker->randomElement(ClubType::toArray()),
-            'carry_distance' => $this->faker->randomNumber(),
-            'total_distance' => $this->faker->randomNumber(),
             'loft' => $this->faker->randomNumber(),
         ];
     }

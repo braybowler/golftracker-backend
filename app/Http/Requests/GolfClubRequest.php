@@ -13,8 +13,6 @@ class GolfClubRequest extends FormRequest
             'model' => 'bail|required|string|max:255',
             'club_category' => 'bail|required',
             'club_type' => 'bail|required',
-            'carry_distance' => 'sometimes|nullable|integer',
-            'total_distance' => 'sometimes|nullable|integer',
             'loft' => 'sometimes|nullable|integer',
         ];
     }
