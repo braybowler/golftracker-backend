@@ -20,8 +20,6 @@ class UpdateGolfClubControllerTest extends TestCase
         $loft = 46;
         $clubCategory = ClubCategory::WEDGE;
         $clubType = ClubType::PW;
-        $carryDistance = 130;
-        $totalDistance = 130;
 
         $user = User::factory()->hasGolfClubs(1, [
             'make' => $make,
@@ -29,8 +27,6 @@ class UpdateGolfClubControllerTest extends TestCase
             'loft' => $loft,
             'club_category' => $clubCategory->value,
             'club_type' => $clubType->value,
-            'carry_distance' => $carryDistance,
-            'total_distance' => $totalDistance,
         ])->create();
 
         $golfClub = $user->golfClubs()->first();
@@ -42,8 +38,6 @@ class UpdateGolfClubControllerTest extends TestCase
             'loft' => $loft,
             'club_category' => $clubCategory->value,
             'club_type' => $clubType->value,
-            'carry_distance' => $carryDistance,
-            'total_distance' => $totalDistance,
         ]);
 
         $make = 'Some Other Make';
@@ -58,8 +52,6 @@ class UpdateGolfClubControllerTest extends TestCase
                     'loft' => $loft,
                     'club_category' => $clubCategory->value,
                     'club_type' => $clubType->value,
-                    'carry_distance' => $carryDistance,
-                    'total_distance' => $totalDistance,
                 ])
             ->assertOk();
 
@@ -69,8 +61,6 @@ class UpdateGolfClubControllerTest extends TestCase
             'loft' => $loft,
             'club_category' => $clubCategory->value,
             'club_type' => $clubType->value,
-            'carry_distance' => $carryDistance,
-            'total_distance' => $totalDistance,
         ]);
 
         $response
@@ -81,8 +71,6 @@ class UpdateGolfClubControllerTest extends TestCase
                 ->where('loft', $loft)
                 ->where('club_category', $clubCategory->value)
                 ->where('club_type', $clubType->value)
-                ->where('carry_distance', $carryDistance)
-                ->where('total_distance', $totalDistance)
                 ->etc()
             );
     }
@@ -100,8 +88,6 @@ class UpdateGolfClubControllerTest extends TestCase
         $loft = 46;
         $clubCategory = ClubCategory::WEDGE;
         $clubType = ClubType::PW;
-        $carryDistance = 130;
-        $totalDistance = 130;
 
         $user = User::factory()->hasGolfClubs(1, [
             'make' => $make,
@@ -109,8 +95,6 @@ class UpdateGolfClubControllerTest extends TestCase
             'loft' => $loft,
             'club_category' => $clubCategory->value,
             'club_type' => $clubType->value,
-            'carry_distance' => $carryDistance,
-            'total_distance' => $totalDistance,
         ])->create();
 
         $userTwo = User::factory()->hasGolfClubs(1, [
@@ -119,8 +103,6 @@ class UpdateGolfClubControllerTest extends TestCase
             'loft' => $loft,
             'club_category' => $clubCategory->value,
             'club_type' => $clubType->value,
-            'carry_distance' => $carryDistance,
-            'total_distance' => $totalDistance,
         ])->create();
 
         $inaccessibleGolfClub = $userTwo->golfClubs()->first();
@@ -137,8 +119,6 @@ class UpdateGolfClubControllerTest extends TestCase
                     'loft' => $loft,
                     'club_category' => $clubCategory->value,
                     'club_type' => $clubType->value,
-                    'carry_distance' => $carryDistance,
-                    'total_distance' => $totalDistance,
                 ])
             ->assertNotFound();
     }
@@ -154,8 +134,6 @@ class UpdateGolfClubControllerTest extends TestCase
                 'loft' => 46,
                 'club_category' => ClubCategory::WEDGE->value,
                 'club_type' => ClubType::PW->value,
-                'carry_distance' => 130,
-                'total_distance' => 130,
             ])->assertNotFound();
     }
 }
