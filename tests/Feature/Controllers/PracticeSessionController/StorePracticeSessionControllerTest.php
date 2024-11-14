@@ -10,8 +10,6 @@ use Tests\TestCase;
 
 class StorePracticeSessionControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_it_stores_a_practicesession(): void
     {
         $user = User::factory()->create();

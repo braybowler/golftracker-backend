@@ -9,8 +9,6 @@ use Tests\TestCase;
 
 class ShowGolfBallControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_it_returns_the_golfball_identified_by_the_request_id_parameter(): void
     {
         $user = User::factory()->hasGolfBalls(5)->create();

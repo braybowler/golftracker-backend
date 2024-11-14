@@ -10,8 +10,6 @@ use Tests\TestCase;
 
 class StoreBaggableControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_it_stores_a_baggable(): void
     {
         $user = User::factory()->hasGolfBags()->hasGolfBalls()->create();

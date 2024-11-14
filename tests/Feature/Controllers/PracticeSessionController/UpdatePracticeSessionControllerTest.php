@@ -12,8 +12,6 @@ use Tests\TestCase;
 
 class UpdatePracticeSessionControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_it_updates_a_practicesession()
     {
         Carbon::setTestNow(now());

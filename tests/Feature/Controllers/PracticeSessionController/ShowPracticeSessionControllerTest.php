@@ -9,8 +9,6 @@ use Tests\TestCase;
 
 class ShowPracticeSessionControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_it_returns_the_practicesession_identified_by_the_request_id_parameter(): void
     {
         $user = User::factory()->hasPracticeSessions(5)->create();

@@ -10,7 +10,6 @@ use Tests\TestCase;
 
 class GolfBagTest extends TestCase
 {
-    use RefreshDatabase;
     public function test_it_can_retrieve_specific_polymorphic_relationship_models(): void
     {
         $golfBag = GolfBag::factory()

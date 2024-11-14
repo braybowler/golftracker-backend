@@ -9,8 +9,6 @@ use Tests\TestCase;
 
 class StoreEquippableControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_it_stores_an_equippable(): void
     {
         $user = User::factory()->hasGolfClubs()->create();

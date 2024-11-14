@@ -11,8 +11,6 @@ use Tests\TestCase;
 
 class IndexYardageControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_it_returns_all_yardages_for_all_user_clubs(): void
     {
         $numYardages = 6;

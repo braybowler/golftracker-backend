@@ -8,8 +8,6 @@ use Tests\TestCase;
 
 class MeAuthControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_it_returns_the_authed_user_if_a_user_is_in_the_auth_session()
     {
         $user = User::factory()->create([

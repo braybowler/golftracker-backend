@@ -8,8 +8,6 @@ use Tests\TestCase;
 
 class DestroyGolfClubControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_it_deletes_a_golfclub()
     {
         $user = User::factory()->hasGolfClubs()->create();

@@ -9,8 +9,6 @@ use Tests\TestCase;
 
 class RegisterAuthControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_it_allows_a_new_user_to_register()
     {
         $this->assertDatabaseCount('users', 0);

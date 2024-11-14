@@ -8,8 +8,6 @@ use Tests\TestCase;
 
 class LoginAuthControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_it_allows_a_registered_user_to_login()
     {
         User::factory()->create([

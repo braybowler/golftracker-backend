@@ -9,8 +9,6 @@ use Tests\TestCase;
 
 class IndexGolfBagControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_it_returns_all_golfbags_for_a_user_when_fewer_than_10_exist(): void
     {
         $numGolfBags = 5;

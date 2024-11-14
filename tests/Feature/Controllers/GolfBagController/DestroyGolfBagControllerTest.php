@@ -8,8 +8,6 @@ use Tests\TestCase;
 
 class DestroyGolfBagControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_it_deletes_a_golfbag()
     {
         $user = User::factory()->hasGolfBags()->create();

@@ -11,8 +11,6 @@ use Tests\TestCase;
 
 class StoreGolfClubControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_it_stores_a_golfclub(): void
     {
         $user = User::factory()->create();

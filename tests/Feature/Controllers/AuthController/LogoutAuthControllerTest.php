@@ -8,8 +8,6 @@ use Tests\TestCase;
 
 class LogoutAuthControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_it_allows_an_authenticated_user_to_logout()
     {
         $user = User::factory()->create([

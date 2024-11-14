@@ -9,8 +9,6 @@ use Tests\TestCase;
 
 class UpdateGolfBallControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_it_updates_a_golfball()
     {
         $make = 'Titleist';

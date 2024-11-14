@@ -11,8 +11,6 @@ use Tests\TestCase;
 
 class UpdateGolfClubControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_it_updates_a_golfclub()
     {
         $make = 'Titleist';

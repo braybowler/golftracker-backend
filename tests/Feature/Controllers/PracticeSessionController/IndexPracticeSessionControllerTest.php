@@ -9,8 +9,6 @@ use Tests\TestCase;
 
 class IndexPracticeSessionControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_it_returns_all_practicesessions_for_a_user_when_fewer_than_10_exist(): void
     {
         $numPracticeSessions = 5;

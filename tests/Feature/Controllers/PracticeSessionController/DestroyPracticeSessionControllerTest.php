@@ -8,8 +8,6 @@ use Tests\TestCase;
 
 class DestroyPracticeSessionControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_it_deletes_a_practicesession()
     {
         $user = User::factory()->hasPracticeSessions()->create();

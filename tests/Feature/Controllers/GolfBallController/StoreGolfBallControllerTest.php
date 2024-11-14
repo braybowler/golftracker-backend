@@ -9,8 +9,6 @@ use Tests\TestCase;
 
 class StoreGolfBallControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_it_stores_a_golfball(): void
     {
         $user = User::factory()->create();
